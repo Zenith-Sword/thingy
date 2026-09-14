@@ -4,18 +4,24 @@ workflows:
     max_build_duration: 60
     instance_type: linux_x2
 
+    environment:
+      java: 17
+
     scripts:
       - name: Set Android SDK location
         script: |
           echo "sdk.dir=$ANDROID_SDK_ROOT" > "$CM_BUILD_DIR/local.properties"
 
-      - name: Clear Gradle cache
+      - name: Install Gradle 9.3.1
         script: |
-          rm -rf ~/.gradle/caches
+          curl -L https://services.gradle.org/distributions/gradle-9.3.1-bin.zip -o /tmp/gradle.zip
+          unzip -q /tmp/gradle.zip -d /tmp
+          export PATH="/tmp/gradle-9.3.1/bin:$PATH"
+          gradle --version
 
       - name: Build APK
         script: |
-          gradle --stop || true
+          export PATH="/tmp/gradle-9.3.1/bin:$PATH"
           gradle assembleDebug --no-configuration-cache
 
     artifacts:
