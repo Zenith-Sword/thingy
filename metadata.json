@@ -1,0 +1,6 @@
+{
+  "name": "Rhythm Controller",
+  "description": "Low-latency UDP touch controller for rhythm games with 4 responsive multi-touch tiles",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
