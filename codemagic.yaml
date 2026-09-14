@@ -19,6 +19,19 @@ workflows:
           export PATH="/tmp/gradle-9.3.1/bin:$PATH"
           gradle --version
 
+      - name: Create debug keystore
+        script: |
+          keytool -genkeypair \
+            -v \
+            -keystore "$CM_BUILD_DIR/debug.keystore" \
+            -storepass android \
+            -alias androiddebugkey \
+            -keypass android \
+            -keyalg RSA \
+            -keysize 2048 \
+            -validity 10000 \
+            -dname "CN=Android Debug,O=Android,C=US"
+
       - name: Build APK
         script: |
           export PATH="/tmp/gradle-9.3.1/bin:$PATH"
